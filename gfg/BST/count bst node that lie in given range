@@ -1,0 +1,24 @@
+void inorder(Node* root, queue<int> &v)
+{
+    if(!root) return;
+    
+    inorder(root->left, v);
+    v.push(root->data);
+    inorder(root->right, v);
+}
+int getCountOfNode(Node *root, int l, int h)
+{
+  // your code goes here  
+  queue<int> v;
+  inorder(root,v);
+  
+  int count=0;
+  while(!v.empty())
+  {
+      int i = v.front();
+      if(i>=l && i<=h)
+       count++;
+       v.pop();
+  }
+  return count;
+}
