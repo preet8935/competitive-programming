@@ -1,0 +1,30 @@
+void storeBST(Node* root,vector<Node*> &vec)
+{
+    if(root== NULL) return;
+    
+    if(root->left) storeBST(root->left, vec);
+    vec.push_back(root);
+    if(root->right) storeBST(root->right, vec);
+    
+}
+Node* buildUtil(vector<Node*> vec,int start, int end)
+{
+    if(start > end) return NULL;
+    
+    int mid= (start  + end)/2;
+    Node* root= vec[mid];
+    
+    root->left = buildUtil(vec, start, mid-1);
+    root->right = buildUtil(vec, mid+1, end);
+    return root;
+}
+Node* buildBalancedTree(Node* root)
+{
+	// Code here
+	vector<Node*> vec;
+	
+	storeBST(root,vec);
+	
+	int n=vec.size();
+	return buildUtil(vec,0,n-1);
+}
